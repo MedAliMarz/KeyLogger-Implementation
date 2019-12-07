@@ -1,3 +1,6 @@
+'''
+Helper Module contains shared functions related to Time handling
+'''
 import time
 def now():
 	return time.ctime()
@@ -14,4 +17,4 @@ def getTimeString(delimiter=':'):
 	return result
 
 def getDateTimeString(delimiter=':'):
-	return f"{getDateString()} {getDateTimeString(delimiter)}"
+	return f"{getDateString()} {getTimeString(delimiter)}"

